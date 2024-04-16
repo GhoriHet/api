@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  title: Ecommerce API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+servers:
+  - url: http://localhost:3000/api/v1/
+    description: Local server description, e.g. Local server
+  - url: http://api.example.com/v1
+    description: Optional server description, e.g. Main (production) server
+  - url: http://staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+paths:
+  /category/list-category:
+    get:
+      tags: 
+        - category
+      summary: Returns a list of category.
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':    # status code
+          description: A JSON array of category
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+
+  /category/get-category/{categoryId}:
+    get:
+      tags: 
+        - category
+      summary: Returns a list of category.
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          description: The ID of the user to return.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':    # status code
+          description: A JSON array of category
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+
+  /category/create-category:
+    post:
+      tags: 
+        - category
+      summary: Creates a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _id: 
+                  type: number
+                name:
+                  type: string
+                description:
+                  type: string
+                image:
+                  type: string
+      responses: 
+        '201':
+          description: Created
+
+  /category/update-category/{categoryId}:
+    put:
+      tags:
+        - category
+      summary: Updates category
+      description: Optional extended description in CommonMark or HTML.
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          description: The ID of the category to update.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                image:
+                  type: string
+              required:
+                - name
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+
+  /category/delete-category/{categoryId}:
+    delete:
+      tags:
+        - category
+      summary: Deletes a category
+      description: Optional extended description in CommonMark or HTML.
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          description: The ID of the category to delete.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
